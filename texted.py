@@ -77,7 +77,7 @@ class PyPad:
         self.menu.add_cascade(label="File", menu=self.filemenu)
         self.filemenu.add_command(label="New", command=self.dummy)
         self.filemenu.add_command(label="Open...", command=self.ope)
-        self.filemenu.add_command(label="Save", command=self.save_command)
+        self.filemenu.add_command(label="Save", command=self.save_command, accelerator = "Command-S")
         self.filemenu.add_command(label="Save As", command=self.save_as)
         self.filemenu.add_separator()
         self.filemenu.add_command(label="Exit", command=self.exit)
@@ -87,7 +87,7 @@ class PyPad:
         self.projectmenu.add_command(label = "Build", command= self.code_output)
         self.helpmenu = Menu(self.menu)
         self.menu.add_cascade(label="Help", menu=self.helpmenu)
-        self.helpmenu.add_command(label="About")
+        self.helpmenu.add_command(label="About", command = self.about)
         self.name = False
         self.highlightWords = {'if': 'green',  
         'else': 'green', 
@@ -250,6 +250,10 @@ class PyPad:
         self.save_command()
         self.root.destroy()
     
+    def about(self):
+        self.t = Toplevel(self.root) 
+        self.mess = Message(self.t, text="Python text ediotr created by Peter Peluso", width = 1000)
+        self.mess.pack()
         
         
 
