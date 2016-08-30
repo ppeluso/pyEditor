@@ -12,55 +12,6 @@ import sys
 
 
 
-
-
-
-
-
-
-
-#proc = sub.Popen(['python', 'test.py'], stdout=sub.PIPE, stderr=sub.STDOUT)
-#proctext = proc.stdout.read()
-#retcode = proc.wait()
-#
-#print (proctext)
-
-
-
-#textPad = ScrolledText(root,width=100,height=80, bg = "black",fg = "white",font=('courier', 16, 'normal'),insertbackground= "green",bd=0, highlightthickness=0 )
-#textPad.config(cursor = "boat blue blue")
-
-#textPad.pack()
-#textPad.insert(END, proctext)
-
-
-            
-
-
-
-         
-
- 
-
-    
-#menu = Menu(root)
-#root.config(menu=menu)
-#filemenu = Menu(menu)
-#menu.add_cascade(label="File", menu=filemenu)
-#filemenu.add_command(label="New", command=code)
-#filemenu.add_command(label="Open...", command=open_command)
-#filemenu.add_command(label="Save", command=save_command)
-#filemenu.add_separator()
-#filemenu.add_command(label="Exit", command=exit_command)
-#
-#helpmenu = Menu(menu)
-#menu.add_cascade(label="Help", menu=helpmenu)
-#helpmenu.add_command(label="About", command = about_command)
-#
-
-#textPad.pack()
-#root.mainloop()
-
 class PyPad: 
     
     def __init__(self):
@@ -76,15 +27,15 @@ class PyPad:
         self.filemenu = Menu(self.menu)
         self.menu.add_cascade(label="File", menu=self.filemenu)
         self.filemenu.add_command(label="New", command=self.dummy)
-        self.filemenu.add_command(label="Open...", command=self.ope)
+        self.filemenu.add_command(label="Open...", command=self.ope, accelerator = "Command-O")
         self.filemenu.add_command(label="Save", command=self.save_command, accelerator = "Command-S")
-        self.filemenu.add_command(label="Save As", command=self.save_as)
+        self.filemenu.add_command(label="Save As", command=self.save_as, accelerator ="Command-A")
         self.filemenu.add_separator()
         self.filemenu.add_command(label="Exit", command=self.exit)
         self.previousContent = 0
         self.projectmenu = Menu(self.menu)
         self.menu.add_cascade(label="Project", menu = self.projectmenu) 
-        self.projectmenu.add_command(label = "Build", command= self.code_output)
+        self.projectmenu.add_command(label = "Build", command= self.code_output, accelerator = "Command-B")
         self.helpmenu = Menu(self.menu)
         self.menu.add_cascade(label="Help", menu=self.helpmenu)
         self.helpmenu.add_command(label="About", command = self.about)
@@ -100,7 +51,9 @@ class PyPad:
     
         self.textPad.pack(side = "left")
         self.textPad.bind('<KeyRelease>', self.highlight)
+        self.textPad.bind("<Tab>", self.tab)
         self.output.pack(side = "right")
+        
 
         self.root.mainloop()
         
@@ -254,8 +207,11 @@ class PyPad:
         self.t = Toplevel(self.root) 
         self.mess = Message(self.t, text="Python text ediotr created by Peter Peluso", width = 1000)
         self.mess.pack()
-        
-        
+
+    def tab(self,arg):
+        print("tab pressed")
+        self.textPad.insert(INSERT, " " * 4)
+        return 'break'
 
         
         
